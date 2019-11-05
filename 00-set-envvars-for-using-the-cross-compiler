@@ -1,0 +1,27 @@
+#!/bin/bash
+# After the cross compiler has been built, we use it as default.
+export CC="${LJOS_TARGET}-gcc"
+export CXX="${LJOS_TARGET}-g++"
+export CPP="${LJOS_TARGET}-gcc -E"
+export AR="${LJOS_TARGET}-ar"
+export AS="${LJOS_TARGET}-as"
+export LD="${LJOS_TARGET}-ld"
+export RANLIB="${LJOS_TARGET}-ranlib"
+export READELF="${LJOS_TARGET}-readelf"
+export STRIP="${LJOS_TARGET}-strip"
+
+echo If you haven\'t, remember to use ./source on this file to export the variables in the shell.
+echo If you haven\'t, remember to source 01-set-envvars-usr before this file.
+
+echo 
+echo Cross compiler targets:
+echo
+echo C Compiler:         CC=${CC}
+echo C++ Compiler:       CXX=${CXX}
+echo C Preprocessor:     CPP=${CPP}
+echo AR library archive: AR=${AR}
+echo Assembler:          AS=${AS}
+echo Linker:             LD=${LD}
+echo Ranlib indexer:     RANLIB=${RANLIB}
+echo Read ELF file:      READELF=${READELF}
+echo Strip debug syms:   STRIP=${STRIP}

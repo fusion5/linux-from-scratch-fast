@@ -1,0 +1,27 @@
+pushd linux-5.2.21
+
+    make ARCH=${LJOS_ARCH} \
+         CROSS_COMPILE=${LJOS_TARGET}- mrproper
+
+    make ARCH=${LJOS_ARCH} \
+         CROSS_COMPILE=${LJOS_TARGET}- x86_64_defconfig
+
+    make ARCH=${LJOS_ARCH} \
+         CROSS_COMPILE=${LJOS_TARGET}- menuconfig
+    
+    make ARCH=${LJOS_ARCH} \
+         CROSS_COMPILE=${LJOS_TARGET}-
+
+    make ARCH=${LJOS_ARCH} \
+         CROSS_COMPILE=${LJOS_TARGET}- \
+         INSTALL_MOD_PATH=${LJOS} modules_install
+
+    cp -v arch/x86/boot/bzImage ${LJOS}/boot/vmlinuz-5.2.21
+    cp -v System.map ${LJOS}/boot/System.map-5.2.21
+    cp -v .config ${LJOS}/boot/config-5.2.21
+
+    ${LJOS}/cross-tools/bin/depmod.pl \
+        -F ${LJOS}/boot/System.map-5.2.21 \
+        -b ${LJOS}/lib/modules/5.2.21
+
+popd

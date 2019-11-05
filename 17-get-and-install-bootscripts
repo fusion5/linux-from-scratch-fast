@@ -1,0 +1,9 @@
+# svn checkout https://github.com/cross-lfs/bootscripts-standard/trunk/bootscripts .
+wget http://ftp.clfs.org/pub/clfs/conglomeration/bootscripts-clfs-embedded/bootscripts-clfs-embedded-1.0-pre5.tar.bz2
+tar -xvf bootscripts-clfs-embedded-1.0-pre5.tar.bz2 
+
+pushd bootscripts-clfs-embedded-1.0-pre5
+make DESTDIR=${LJOS}/ install-bootscripts
+ln -sv ../rc.d/startup ${LJOS}/etc/init.d/rcS
+
+popd

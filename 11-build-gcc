@@ -1,0 +1,28 @@
+mkdir gcc-static
+pushd gcc-static
+
+    AR=ar LDFLAGS="-Wl,-rpath,${LJOS}/cross-tools/lib" \
+        ../gcc-9.2.0/configure --prefix=${LJOS}/cross-tools \
+        --build=${LJOS_HOST} --target=${LJOS_TARGET} \
+        --host=${LJOS_HOST} \
+        --with-sysroot=${LJOS}/target \
+        --disable-nls \
+        --disable-shared \
+        --with-mpfr-include=$(pwd)/../gcc-9.2.0/mpfr/src \
+        --with-mpfr-lib=$(pwd)/mpfr/src/.libs \
+        --without-headers \
+        --with-newlib \
+        --disable-decimal-float \
+        --disable-libgomp \
+        --disable-libmudflap \
+        --disable-libssp \
+        --disable-threads \
+        --enable-languages=c,c++ \
+        --disable-multilib \
+        --with-arch=${LJOS_CPU}
+    make all-gcc all-target-libgcc && \
+        make install-gcc install-target-libgcc
+
+    ln -vs libgcc.a `${LJOS_TARGET}-gcc -print-libgcc-file-name | sed 's/libgcc/&_eh/'`
+
+popd

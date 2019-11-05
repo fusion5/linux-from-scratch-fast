@@ -1,0 +1,23 @@
+# Note in the last steps we use grub2 so this might have to be modified.
+mkdir -p ${LJOS}/boot/grub2
+cat > ${LJOS}/boot/grub2/grub.cfg<< "EOF"
+
+set default=0
+set timeout=5
+
+set root=(hd0,1)
+
+menuentry "Dragos' test of Linux Journal OS 0.1a with UUID" {
+    linux  /boot/vmlinuz-5.2.21 \
+        root=PARTUUID=9cad5495-01 \
+        bootdelay=100 \
+        usb-storage.delay_use=0 \
+        acpi_backlight=video \
+        video.brightness_switch_enabled=1 \
+        quiet \
+        loglevel=8 \
+        ro
+}
+
+EOF
+

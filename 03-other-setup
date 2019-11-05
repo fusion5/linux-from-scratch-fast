@@ -1,0 +1,83 @@
+# Create the directory for a cross-compilation toolchain
+install -dv ${LJOS}/cross-tools{,/bin}
+
+# Use a symlink to /proc/mounts to maintain a list of mounted filesystems in the /etc/mtab file
+ln -svf ../proc/mounts ${LJOS}/etc/mtab
+
+# Create /etc/passwd
+cat > ${LJOS}/etc/passwd << "EOF"
+root::0:0:root:/root:/bin/ash
+EOF
+
+# Create the /etc/group file with the following command: 
+cat > ${LJOS}/etc/group << "EOF"
+root:x:0:
+bin:x:1:
+sys:x:2:
+kmem:x:3:
+tty:x:4:
+daemon:x:6:
+disk:x:8:
+dialout:x:10:
+video:x:12:
+utmp:x:13:
+usb:x:14:
+EOF
+
+# The target system's /etc/fstab: 
+cat > ${LJOS}/etc/fstab << "EOF"
+# file system  mount-point  type   options          dump  fsck
+#                                                         order
+
+rootfs          /               auto    defaults        1      1
+proc            /proc           proc    defaults        0      0
+sysfs           /sys            sysfs   defaults        0      0
+devpts          /dev/pts        devpts  gid=4,mode=620  0      0
+tmpfs           /dev/shm        tmpfs   defaults        0      0
+EOF
+
+# The target system's /etc/profile to be used by the Almquist shell (ash) once the user is logged in to the target machine: 
+
+cat > ${LJOS}/etc/profile << "EOF"
+export PATH=/bin:/usr/bin
+
+if [ `id -u` -eq 0 ] ; then
+        PATH=/bin:/sbin:/usr/bin:/usr/sbin
+        unset HISTFILE
+fi
+
+# Set up some environment variables.
+export USER=`id -un`
+export LOGNAME=$USER
+export HOSTNAME=`/bin/hostname`
+export HISTSIZE=1000
+export HISTFILESIZE=1000
+export PAGER='/bin/more '
+export EDITOR='/bin/vi'
+EOF
+
+# Hostname
+echo "ljos-test" > ${LJOS}/etc/HOSTNAME
+
+# Boot show
+cat > ${LJOS}/etc/issue<< "EOF"
+Dragos' test of Linux Journal OS 0.1a
+Kernel \r on an \m
+
+EOF
+
+# Init scripts (Busybox)
+cat > ${LJOS}/etc/inittab<< "EOF"
+::sysinit:/etc/rc.d/startup
+
+tty1::respawn:/sbin/getty 38400 tty1
+tty2::respawn:/sbin/getty 38400 tty2
+tty3::respawn:/sbin/getty 38400 tty3
+tty4::respawn:/sbin/getty 38400 tty4
+tty5::respawn:/sbin/getty 38400 tty5
+tty6::respawn:/sbin/getty 38400 tty6
+
+::shutdown:/etc/rc.d/shutdown
+::ctrlaltdel:/sbin/reboot
+EOF
+

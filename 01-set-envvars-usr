@@ -1,0 +1,17 @@
+#!/bin/bash
+# Prepare the needed variables for the tutorial at
+# https://www.linuxjournal.com/content/diy-build-custom-minimal-linux-distribution-source
+set +h
+umask 022
+export LJOS=/home/acer/linux-xp/os
+export LC_ALL=POSIX
+export PATH=${LJOS}/cross-tools/bin:${PATH}
+unset  CFLAGS
+unset  CXXFLAGS
+export LJOS_HOST=$(echo ${MACHTYPE} | sed "s/-[^-]*/-cross/")
+export LJOS_TARGET=x86_64-unknown-linux-gnu
+export LJOS_CPU=k8
+export LJOS_ARCH=$(echo ${LJOS_TARGET} | sed -e 's/-.*//' -e 's/i.86/i386/')
+export LJOS_ENDIAN=little
+
+echo If you haven\'t, remember to use ./source on this file to export the variables in the shell.

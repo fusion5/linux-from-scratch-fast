@@ -1,0 +1,14 @@
+confirm() {
+    # call with a prompt string or use a default
+    read -r -p "${1:-Are you sure? [y/N]} " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
+
+confirm "Overwrite /dev/sdb?" && dd if=./usb.img of=/dev/sdb bs=1MB
