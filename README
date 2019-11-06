@@ -1,11 +1,10 @@
-The scripts build a GCC that runs on this platform that produces
-binaries for another platform (it's a cross compiler).
-Then, the cross-GCC builds Linux.
+The scripts build a cross-GCC (one that runs on this platform and which produces
+binaries for another platform). Then, the cross-GCC builds Linux.
 
 Primary documentation
 
 Scripts and steps:
 https://www.linuxjournal.com/content/diy-build-custom-minimal-linux-distribution-source
 
-Which package versions to use:
+Compatible package versions and bootscripts:
 http://www.linuxfromscratch.org/lfs/downloads/9.0/LFS-BOOK-9.0-NOCHUNKS.html#pre-hostreqs
