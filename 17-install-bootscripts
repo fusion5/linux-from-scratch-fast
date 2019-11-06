@@ -1,0 +1,11 @@
+set -u
+: "$LJOS"
+set -e
+
+# wget http://ftp.clfs.org/pub/clfs/conglomeration/bootscripts-clfs-embedded/bootscripts-clfs-embedded-1.0-pre5.tar.bz2
+# tar -xvf bootscripts-clfs-embedded-1.0-pre5.tar.bz2 
+
+pushd bootscripts
+    make DESTDIR=${LJOS}/ install-bootscripts
+    ln -sv ../rc.d/startup ${LJOS}/etc/init.d/rcS
+popd

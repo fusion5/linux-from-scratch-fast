@@ -5,18 +5,18 @@ mkdir -p ${LJOS}/boot/grub2
 cat > ${LJOS}/boot/grub2/grub.cfg<< "EOF"
 
 set default=0
-set timeout=5
+set timeout=1
 
 set root=(hd0,1)
 
-menuentry "Dragos' test of Linux Journal OS 0.1a with UUID" {
+menuentry "Minimal Linux with BusyBox by PARTUUID" {
     linux  /boot/vmlinuz-5.2.21 \
         root=PARTUUID=${PTUUID}-01 \
         rootdelay=3 \
         acpi_backlight=video \
         video.brightness_switch_enabled=1 \
         quiet \
-        loglevel=8 \
+        loglevel=3 \
         ro
 }
 

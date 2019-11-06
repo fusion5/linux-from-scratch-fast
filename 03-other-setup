@@ -64,7 +64,7 @@ echo "ljos-test" > ${LJOS}/etc/HOSTNAME
 
 # Boot show
 cat > ${LJOS}/etc/issue<< "EOF"
-Dragos' test of Linux Journal OS 0.1a
+Minimal Linux with BusyBox
 Kernel \r on an \m
 
 EOF
@@ -73,7 +73,7 @@ EOF
 cat > ${LJOS}/etc/inittab<< "EOF"
 ::sysinit:/etc/rc.d/startup
 
-::askfirst:-/bin/sh
+tty1::respawn:/bin/sh
 tty2::respawn:/sbin/getty 38400 tty2
 tty3::respawn:/sbin/getty 38400 tty3
 tty4::respawn:/sbin/getty 38400 tty4

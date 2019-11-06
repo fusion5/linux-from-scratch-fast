@@ -35,6 +35,8 @@ pushd /run/media/acer/tmp_usb/
     cp -r ${LJOS}-copy/* .
     grub2-install --boot-directory=./boot /dev/loop0
     cat ./boot/grub2/grub.cfg | envsubst > ./boot/grub2/grub.cfg
+    echo grub.cfg PARTUUID:
+    cat ./boot/grub2/grub.cfg | grep UUID
 popd
 
 umount /run/media/acer/tmp_usb 
