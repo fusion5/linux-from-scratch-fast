@@ -1,3 +1,6 @@
+set -u
+: "$LJOS"
+
 # Backup
 rm -rf ${LJOS}-copy
 cp -rf ${LJOS}/ ${LJOS}-copy

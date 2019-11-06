@@ -1,3 +1,6 @@
+set -u
+: "$LJOS"
+
 # Note in the last steps we use grub2 so this might have to be modified.
 mkdir -p ${LJOS}/boot/grub2
 cat > ${LJOS}/boot/grub2/grub.cfg<< "EOF"

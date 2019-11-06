@@ -1,1 +1,4 @@
+set -u
+: "$LJOS"
+
 wget https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.2.21.tar.gz .

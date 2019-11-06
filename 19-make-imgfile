@@ -1,3 +1,5 @@
+set -u
+: "$LJOS"
 set -e
 
 #generate a .img file of the OS.
@@ -7,8 +9,8 @@ parted --script ./usb.img mklabel msdos
 parted --script ./usb.img mkpart primary ext4 1M 512M
 
 #cleanup from previous runs if necessary
-losetup -d /dev/loop0 || echo no previous loopback
 umount /run/media/acer/tmp_usb || echo no previous mount
+losetup -d /dev/loop0 || echo no previous loopback
 
 # Mount it as loopback
 
@@ -27,3 +29,7 @@ pushd /run/media/acer/tmp_usb/
     grub2-install --boot-directory=./boot /dev/loop0
 popd
 
+umount /run/media/acer/tmp_usb || echo no previous mount
+losetup -d /dev/loop0 || echo no previous loopback
+
+blkid -o export ./usb.img

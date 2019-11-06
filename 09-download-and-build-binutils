@@ -1,3 +1,6 @@
+set -u
+: "$LJOS"
+
 wget http://ftp.gnu.org/gnu/binutils/binutils-2.32.tar.xz -O binutils-2.32.tar.xz
 tar -xvf binutils-2.32.tar.xz
 

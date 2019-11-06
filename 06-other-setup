@@ -1,2 +1,5 @@
+set -u
+: "$LJOS"
+
 touch ${LJOS}/var/run/utmp ${LJOS}/var/log/{btmp,lastlog,wtmp}
 chmod -v 664 ${LJOS}/var/run/utmp ${LJOS}/var/log/lastlog

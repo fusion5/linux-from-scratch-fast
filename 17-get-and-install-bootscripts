@@ -1,4 +1,6 @@
-# svn checkout https://github.com/cross-lfs/bootscripts-standard/trunk/bootscripts .
+set -u
+: "$LJOS"
+
 wget http://ftp.clfs.org/pub/clfs/conglomeration/bootscripts-clfs-embedded/bootscripts-clfs-embedded-1.0-pre5.tar.bz2
 tar -xvf bootscripts-clfs-embedded-1.0-pre5.tar.bz2 
 

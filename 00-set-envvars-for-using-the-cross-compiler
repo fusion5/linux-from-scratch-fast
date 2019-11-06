@@ -1,4 +1,8 @@
 #!/bin/bash
+
+set -u
+: "$LJOS_TARGET"
+
 # After the cross compiler has been built, we use it as default.
 export CC="${LJOS_TARGET}-gcc"
 export CXX="${LJOS_TARGET}-g++"

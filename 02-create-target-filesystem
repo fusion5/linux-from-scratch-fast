@@ -1,3 +1,6 @@
+set -u
+: "$LJOS"
+
 mkdir -pv ${LJOS}/{bin,boot{,grub},dev,{etc/,}opt,home,lib/{firmware,modules},lib64,mnt}
 mkdir -pv ${LJOS}/{proc,media/{floppy,cdrom},sbin,srv,sys}
 mkdir -pv ${LJOS}/var/{lock,log,mail,run,spool}

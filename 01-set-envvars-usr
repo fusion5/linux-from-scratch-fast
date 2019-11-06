@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Prepare the needed variables for the tutorial at
 # https://www.linuxjournal.com/content/diy-build-custom-minimal-linux-distribution-source
 set +h

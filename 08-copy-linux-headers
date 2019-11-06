@@ -1,3 +1,6 @@
+set -u
+: "$LJOS"
+
 tar -xvf ./linux-5.2.21.tar.gz
 pushd linux-5.2.21
 make mrproper
