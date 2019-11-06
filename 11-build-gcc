@@ -1,5 +1,8 @@
 set -u
 : "$LJOS"
+: "$LJOS_HOST"
+: "$LJOS_TARGET"
+: "$LJOS_CPU"
 
 mkdir gcc-static
 pushd gcc-static

@@ -1,16 +1,17 @@
 set -u
 : "$LJOS"
+
 set -e
 
-#generate a .img file of the OS.
+# Generate an .img file of the OS.
 
 fallocate -l 512M ./usb.img
 parted --script ./usb.img mklabel msdos 
 parted --script ./usb.img mkpart primary ext4 1M 512M
 
-#cleanup from previous runs if necessary
+# Cleanup from previous runs if necessary:
 umount /run/media/acer/tmp_usb || echo no previous mount
-losetup -d /dev/loop0 || echo no previous loopback
+losetup -d /dev/loop0          || echo no previous loopback
 
 # Mount it as loopback
 
@@ -19,7 +20,13 @@ sleep 1
 
 mkfs.ext4 /dev/loop0p1
 
-#copy linux there.
+# Copy linux there.
+
+set -a
+eval "$(blkid -o export ./usb.img)"
+set +a
+
+echo USB Partition UUID: ${PTUUID}
 
 # rm -rf /run/media/acer/tmp_usb
 mkdir -p /run/media/acer/tmp_usb
@@ -27,9 +34,9 @@ mount /dev/loop0p1 /run/media/acer/tmp_usb
 pushd /run/media/acer/tmp_usb/
     cp -r ${LJOS}-copy/* .
     grub2-install --boot-directory=./boot /dev/loop0
+    cat ./boot/grub2/grub.cfg | envsubst > ./boot/grub2/grub.cfg
 popd
 
-umount /run/media/acer/tmp_usb || echo no previous mount
-losetup -d /dev/loop0 || echo no previous loopback
+umount /run/media/acer/tmp_usb 
+losetup -d /dev/loop0
 
-blkid -o export ./usb.img
